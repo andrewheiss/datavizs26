@@ -1,0 +1,6 @@
+reticulate::install_python("3.12.7")
+reticulate::virtualenv_create("datavizs26", version = "3.12.7")
+reticulate::py_install(c("cleannlp", "spacy", "ipykernel", "click"), envname = "datavizs26")
+reticulate::use_virtualenv("datavizs26")
+cleanNLP::cnlp_download_spacy("en_core_web_sm")
+cleanNLP::cnlp_init_udpipe()
