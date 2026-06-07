@@ -276,9 +276,8 @@ You can find descriptions for all the assignments on the [assignments page](/ass
 ```{r assignments-grades, include=FALSE}
 assignments <- tribble(
   ~Points,  ~Assignment,
-  15 * 10 , "Session check-ins (15 × 10)",
-  15 * 10 , "Exercises (15 × 10)",
-  30      , "#TidyTuesday",
+  15 * 10 , "Session check-ins (12 × 10)",
+  15 * 10 , "Exercises (12 × 10)",
   75      , "Mini project 1",
   75      , "Mini project 2",
   200     , "Final project"
