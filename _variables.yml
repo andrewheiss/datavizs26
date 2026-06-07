@@ -14,13 +14,13 @@ instructor:
 
 course:
   number: "PMAP 8551/4551"
-  semester: "Spring 2026"
+  semester: "Summer 2026"
   days: "Any day"
   time: "Asynchronous"
   location: "Anywhere"
-  dates: "January 12–May 4, 2026"
-  github: "https://www.github.com/andrewheiss/datavizsp26.classes.andrewheiss.com"
-  url: "https://datavizsp26.classes.andrewheiss.com"
+  dates: "June 8–July 26, 2026"
+  github: "https://www.github.com/andrewheiss/datavizs26.classes.andrewheiss.com"
+  url: "https://datavizs26.classes.andrewheiss.com"
   copyright_year: "2026"
   discord: "https://discord.com/"
 

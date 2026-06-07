@@ -463,7 +463,7 @@
 // Get these values from the YAML and make them typst variables because writing
 // out shortcodes all the time is messy
 #let header-left = [PMAP]
-#let header-right = [Spring]
+#let header-right = [Summer]
 #let footer-left = [Data]
 
 // The course uses Fira Sans Condensed, but for Reasons, Typst doesn't see it
@@ -686,7 +686,7 @@
 
 #show: doc => article(
   title: [Data Visualization with R],
-  subtitle: [PMAP 8551/4551 • Spring 2026],
+  subtitle: [PMAP 8551/4551 • Summer 2026],
   font: ("Barlow",),
   fontsize: 10pt,
   heading-family: ("Barlow",),
@@ -705,7 +705,7 @@
 // #let note-content = [*Note*#h(1em)The full version of the course syllabus, schedule, and all course materials is available online at #link("https://governancef25.classes.andrewheiss.com/"). This is only a partially complete static version.]
 #let note-content = [*NOTE*#h(1em)The full version of the course syllabus, schedule, and all course
 materials is available online at
-<https://datavizsp26.classes.andrewheiss.com/>. This is only a partially
+<https://datavizs26.classes.andrewheiss.com/>. This is only a partially
 complete static version.
 ]
 
@@ -1264,6 +1264,3 @@ table.cell(colspan: 3)[Conclusions],
 
 ] // end block
 ]
-
-
-

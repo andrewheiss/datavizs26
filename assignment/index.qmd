@@ -43,12 +43,6 @@ The mini projects will be graded using a check system:
 
 Because these mini projects give you practice for the final project, I will provide you with substantial feedback on your design and code.
 
-
-## #TidyTuesday
-
-At some point before the end of the semester, you'll need to (1) take a dataset, (2) do something neat with it, and (3) share it with the public somehow. ([See the complete instructions and details here](/assignment/tidy-tuesday.qmd)).
-
-
 ## Final project
 
 At the end of the course, you will demonstrate your data visualization skills by completing a final project.

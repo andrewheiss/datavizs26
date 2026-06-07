@@ -260,8 +260,8 @@ get_gutenberg_books <- function() {
 
 set_up_python <- function() {
   library(reticulate)
-  virtualenv_create("datavizsp26")
-  py_install("cleannlp", envname = "datavizsp26")
+  virtualenv_create("datavizs26")
+  py_install("cleannlp", envname = "datavizs26")
 }
 
 tag_little_women <- function(raw_text) {

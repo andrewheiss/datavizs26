@@ -1,7 +1,7 @@
 ---
 title: "Introduction to R and the tidyverse"
-date: "2026-01-12"
-date_end: "2026-01-16"
+date: "2026-06-08"
+date_end: "2026-06-12"
 ---
 
 ## Basic process for working with RStudio

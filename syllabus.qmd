@@ -1,18 +1,18 @@
 ---
 title: Syllabus
 pdf-title: "Data Visualization with R"
-pdf-subtitle: "PMAP 8551/4551 • Spring 2026"
+pdf-subtitle: "PMAP 8551/4551 • Summer 2026"
 pdf-note: |
-  The full version of the course syllabus, schedule, and all course materials is available online at <https://datavizsp26.classes.andrewheiss.com/>. This is only a partially complete static version.
+  The full version of the course syllabus, schedule, and all course materials is available online at <https://datavizs26.classes.andrewheiss.com/>. This is only a partially complete static version.
 pdf-header-left: PMAP 8551/4551
-pdf-header-right: Spring 2026
+pdf-header-right: Summer 2026
 pdf-footer-left: Data Visualization with R
 reference-location: margin
 format: 
   html: default
   # typst:
   #   # COURSE SUBJECT-COURSE NUMBER-FACULTY LAST NAME-CRN-TERMYEAR
-  #   output-file: "PMAP-8551-HEISS-89550-SP26.pdf"
+  #   output-file: "PMAP-8551-HEISS-89550-s26.pdf"
   #   citeproc: true
   #   csl: files/bib/chicago-notes.csl
   #   include-in-header: 
@@ -328,92 +328,3 @@ grading |>
 ## Recipes
 
 Once you have read this entire syllabus and [the assignments page](/assignment/index.qmd), post your **favorite recipe** (either a link or the text) to the `#recipes` channel on Discord. I love cooking ([see here for a feed of some of my cooking adventures](https://bsky.app/search?q=from%3Aandrew.heiss.phd+%23pacooks)) and I'm always on the lookout for new things!
-
-:::::: {.content-visible when-format="typst"}
-
-## Schedule
-
-::: {.schedule-table}
-
-```{r}
-#| label: schedule-table
-#| warning: false
-#| message: false
-#| echo: false
-
-schedule <- read_csv(here::here("data/schedule.csv")) |>
-  mutate(session = case_when(
-    is.na(session) & str_detect(title, "session") ~ lag(session),
-    is.na(session) ~ glue::glue("Thing {row_number()}"),
-    .default = session
-  )) |> 
-  mutate(
-    deadline_actual = update(
-      date,
-      hour = hour(deadline),
-      minute = minute(deadline)
-    ),
-    deadline_nice = format(deadline_actual, "%I:%M %p"),
-    date_nice = case_when(
-      is.na(end_date) ~ format(date, "%B %e"),
-      !is.na(end_date) ~ glue::glue('{format(date, "%B %e")}–{format(end_date, "%B %e")}')
-    )
-  ) |>
-  mutate(
-    title = case_when(
-      str_detect(content, "class") ~ glue::glue("*{title}*"),
-      !is.na(deadline) ~ glue::glue("{title} _(due by {deadline_nice})_"),
-      .default = title
-    )
-  ) |>
-  select(group, session, date_nice, title)
-
-# Figure out alternating topics for special styling
-tbl_data <- schedule |>
-  group_by(session) |>
-  mutate(
-    is_first = row_number() == 1,
-    session = case_when(
-      str_starts(session, "Thing") ~ "Project",
-      is_first ~ session,
-      .default = ""
-    )
-  ) |>
-  ungroup() |>
-  # Add new rows for the group rows so that the row index values match the tt() table
-  reframe(
-    session = c(NA, session),
-    date_nice = c(NA, date_nice),
-    title = c(NA, title),
-    is_first = c(NA, is_first),
-    .by = group
-  ) |>
-  mutate(row_id = row_number()) |>
-  # Now that we have the correct row numbers, get rid of those placeholder rows
-  drop_na(is_first) |>
-  # Find which subgroup rows cluster together and mark their oddness/evenness
-  mutate(
-    session_sequential = cumsum(is_first),
-    session_highlight = session_sequential %% 2
-  ) |> 
-    # Typst doesn't like #TidyTuesday
-  mutate(title = str_replace(title, "#TidyTuesday", "\\\\#TidyTuesday"))
-
-# Extract the rows that should be highlighted
-highlight_rows <- tbl_data |>
-  filter(session_highlight == 1) |>
-  pull(row_id)
-
-# Make the table
-tbl_data |>
-  select(session, date_nice, title) |>
-  tt(colnames = FALSE) |>
-  group_tt(i = tbl_data$group) |>
-  style_tt("groupi", bold = TRUE, line = "b", line_width = 0.05) |>
-  style_tt(i = highlight_rows, background = "#eeeeee") |>
-  format_tt(j = 3, markdown = TRUE)
-```
-
-:::
-
-::::::

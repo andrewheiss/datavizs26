@@ -2,21 +2,21 @@
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
-# Data Visualization with R <a href='https://datavizsp26.classes.andrewheiss.com/'><img src='files/favicon-512.png' align="right" height="139" /></a>
+# Data Visualization with R <a href='https://datavizs26.classes.andrewheiss.com/'><img src='files/favicon-512.png' align="right" height="139" /></a>
 
-[PMAP 8551/4551 • Spring 2026](https://datavizsp26.classes.andrewheiss.com/)  
+[PMAP 8551/4551 • Summer 2026](https://datavizs26.classes.andrewheiss.com/)  
 [Andrew Heiss](https://www.andrewheiss.com/) • Andrew Young School of Policy Studies • Georgia State University
 
 ------------------------------------------------------------------------
 
-**[Quarto](https://quarto.org/) + [{targets}](https://docs.ropensci.org/targets/) + [{renv}](https://rstudio.github.io/renv/) = magic! 🧙‍♂️**
+**[Quarto](https://quarto.org/) + [{targets}](https://docs.ropensci.org/targets/) + [{renv}](https://rstudio.github.io/renv/) = magic! 🧝‍♀️**
 
 ------------------------------------------------------------------------
 
 ## How to build the site
 
 1.  Install [RStudio](https://www.rstudio.com/products/rstudio/download/#download) version 2022.07.1 or later since it has a [Quarto](https://quarto.org/) installation embedded in it. Otherwise, download and install [Quarto](https://quarto.org/) separately.
-2.  Open `datavizsp26.Rproj` to open an [RStudio Project](https://r4ds.hadley.nz/workflow-scripts.html#projects).
+2.  Open `datavizs26.Rproj` to open an [RStudio Project](https://r4ds.hadley.nz/workflow-scripts.html#projects).
 3.  If it’s not installed already, R *should* try to install the [{renv} package](https://rstudio.github.io/renv/) when you open the RStudio Project for the first time. If you don’t see a message about package installation, install it yourself by running `install.packages("renv")` in the R console.
 4.  Run `renv::restore()` in the R console to install all the required packages for this project.
 5.  Run `targets::tar_make()` in the R console to build everything.

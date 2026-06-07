@@ -27,7 +27,7 @@ csl: files/bib/chicago-author-date.csl
 website:
   title: "Data Visualization with R"
   description: "Use R, ggplot2, and the principles of graphic design to create beautiful and truthful visualizations of data"
-  site-url: "https://datavizsp26.classes.andrewheiss.com"
+  site-url: "https://datavizs26.classes.andrewheiss.com"
 
   draft-mode: unlinked
 
@@ -44,16 +44,16 @@ website:
   favicon: "/files/favicon-512.png"
 
   twitter-card:
-    image: "/files/social-image-sp26.png"
+    image: "/files/social-image-s26.png"
     card-style: summary_large_image
     creator: "@andrewheiss"
     # site: "@andrewheiss"
 
   open-graph:
-    image: "/files/social-image-sp26.png"
+    image: "/files/social-image-s26.png"
     locale: en_US
 
-  repo-url: "https://github.com/andrewheiss/datavizsp26.classes.andrewheiss.com"
+  repo-url: "https://github.com/andrewheiss/datavizs26.classes.andrewheiss.com"
   repo-actions: [source, issue]
   
   page-navigation: true
@@ -179,8 +179,6 @@ website:
         - section: "General assignments"
           contents:
             - assignment/session-check-in.qmd
-            - text: "#TidyTuesday"
-              file: assignment/tidy-tuesday.qmd
         - section: "Projects"
           contents:
             - text: "Mini project 1"
