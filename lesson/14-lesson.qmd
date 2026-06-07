@@ -4,6 +4,10 @@ date: "2026-07-13"
 date_end: "2026-07-17"
 ---
 
+::: {.callout-important title="ATTENTION!"}
+For this week, you should choose **only one (1)** exercise from among Sessions 11, 12, 13, and 14. Do not do more unless you want extra credit.
+:::
+
 There's no lesson for this session. In your exercise this week you'll visualize text data using [{tidytext}](https://www.tidytextmining.com/), and the best way to figure that out is to just play with data.
 
 So head over to [the example](/example/14-example.qmd) to see how it's done, or [the exercise](/assignment/14-exercise.qmd) to get started!

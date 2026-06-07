@@ -4,6 +4,10 @@ date: "2026-07-13"
 date_end: "2026-07-17"
 ---
 
+::: {.callout-important title="ATTENTION!"}
+For this week, you should choose **only one (1)** exercise from among Sessions 11, 12, 13, and 14. Do not do more unless you want extra credit.
+:::
+
 ```{r load-targets, include=FALSE}
 withr::with_dir(here::here(), {
   fred_path <- targets::tar_read(data_fred)

@@ -22,7 +22,7 @@ ical_url_absolute <- paste0(base_url, "/", schedule_ical_file)
 
 ::: {.schedule-page}
 
-Here's your roadmap for the semester!
+Here's your roadmap for the semester! (**scroll down to see a complete calendar!**)
 
 - [**Content**](/content/index.qmd) ({{< fa book-open-reader >}}): This page contains the readings, slides, and recorded lectures for the topic. Read and watch these first.
 
@@ -75,6 +75,12 @@ You can subscribe to this calendar URL in Outlook, Google Calendar, or Apple Cal
 show_table <- function(group_id) {
   # Add a heading
   cat(as.character(paste("\n\n###", schedule_nested$group[[group_id]], "\n\n")))
+
+  if (str_detect(schedule_nested$group[[group_id]], "Special applications")) {
+    cat('\n\n::: {.callout-important title="ATTENTION!"}
+Sessions 11, 12, 13, and 14 are special. Choose **only one (1)** of these topics. You can do more for extra credit.
+:::\n\n')
+  }
   
   # Make the table
   tbl <- schedule_nested$data[[group_id]] |> 

@@ -3,6 +3,10 @@ title: "Time"
 date: "2026-07-20"
 ---
 
+::: {.callout-important title="ATTENTION!"}
+For this week, you should choose **only one (1)** exercise from among Sessions 11, 12, 13, and 14. Do not do more unless you want extra credit.
+:::
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.align = "center")
 ```
