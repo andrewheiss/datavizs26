@@ -1,5 +1,18 @@
 # This file is generated with data/extract-news-headings.R; do not edit by hand
 
+- title: "Three INCREDIBLY IMPORTANT notes about the schedule"
+  categories:
+  - "course details"
+  date_actual: '1780852080'
+  date: "2026-06-07T17:08:00"
+  href: "/news/2026-06-07_schedule-details.html"
+  headings:
+  - id: "course-pace"
+    text: "1: Course pace"
+  - id: "choose-your-own-adventure-week"
+    text: "2: Choose-your-own-adventure week"
+  - id: "final-project-deadline-and-end-of-class"
+    text: "3: Final project deadline and end of class"
 - title: "Building community on Discord"
   categories:
   - "advice"
@@ -11,6 +24,13 @@
     text: "Class community"
   - id: "online-community"
     text: "Online community"
+- title: "Important R stuff"
+  categories:
+  - "getting started"
+  date_actual: '1780834380'
+  date: "2026-06-07T12:13:00"
+  href: "/news/2026-06-07_important-r-stuff.html"
+  headings: []
 - title: "Announcements and updates"
   categories:
   - "getting started"
@@ -24,12 +44,5 @@
   date_actual: '1780831560'
   date: "2026-06-07T11:26:00"
   href: "/news/2026-06-07_welcome.html"
-  headings: []
-- title: "Important R stuff"
-  categories:
-  - "getting started"
-  date_actual: '1767615180'
-  date: "2026-01-05T12:13:00"
-  href: "/news/2026-06-07_important-r-stuff.html"
   headings: []
 
