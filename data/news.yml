@@ -1,5 +1,81 @@
 # This file is generated with data/extract-news-headings.R; do not edit by hand
 
+- title: "Session 6 FAQs"
+  categories:
+  - "FAQs"
+  date_actual: '1782820080'
+  date: "2026-06-30T11:48:00"
+  href: "/news/2026-06-30_faqs_session-06.html"
+  headings:
+  - id: "can-we-see-the-answers-for-these-exercises"
+    text: "Can we see the answers for these exercises?"
+  - id: "how-wide-should-my-histogram-bins-be-whats-the-best-rule-to-follow"
+    text: "How wide should my histogram bins be? What’s the best rule to follow?"
+  - id: "whats-the-rightbestmost-appropriateclearest-way-to-communicate-uncertainty"
+    text: "What’s the right/best/most appropriate/clearest way to communicate uncertainty?"
+  - id: "am-i-telling-r-what-to-do-with-my-code-or-is-it-telling-me-what-to-do-whos-in-charge-why-isnt-it-listening"
+    text: "Am I telling R what to do with my code, or is it telling me what to do?
+      Who’s in charge? Why isn’t it listening?!"
+  - id: "do-i-really-need-to-make-fancy-custom-themes-for-every-plot-arent-theme_bw-or-theme_gray-just-fine"
+    text: "Do I really need to make fancy custom themes for every plot? Aren’t <code>theme_bw()</code>
+      or <code>theme_gray()</code> just fine?"
+  - id: "we-keep-seeing-violin-plots-but-theyre-still-confusing-and-ugly-and-weird.-why-are-they-a-thing"
+    text: "We keep seeing violin plots, but they’re still confusing (and ugly and
+      weird). Why are they a thing?"
+  - id: "i-have-numbers-like-20000-and-want-them-formatted-with-commas-like-20000.-can-i-do-that-automatically"
+    text: "I have numbers like 20000 and want them formatted with commas like 20,000.
+      Can I do that automatically?"
+  - id: "i-tried-using-gghalves-and-geom_half_point-but-i-got-an-error"
+    text: "I tried using {gghalves} and <code>geom_half_point()</code> but I got an
+      error?"
+  - id: "does-it-matter-which-order-we-put-the-different-layers-in"
+    text: "Does it matter which order we put the different layers in?"
+- title: "Session 5 FAQs"
+  categories:
+  - "FAQs"
+  date_actual: '1782815460'
+  date: "2026-06-30T10:31:00"
+  href: "/news/2026-06-30_faqs_session-05.html"
+  headings:
+  - id: "this-is-too-much-codetableau-can-do-all-this-so-why-cant-we-use-that"
+    text: "This is too much code—Tableau can do all this, so why can’t we use that?"
+  - id: "what-happened-to-ggthemeassist-why-isnt-it-working"
+    text: "What happened to {ggThemeAssist}? Why isn’t it working?"
+  - id: "i-specified-chunk-options-like-fig-width-but-they-didnt-work-and-they-appeared-in-the-documentwhy"
+    text: "I specified chunk options like <code>fig-width</code> but they didn’t work
+      and they appeared in the document—why?"
+  - id: "why-does-r-keep-complaining-about-size-being-deprecated"
+    text: "Why does R keep complaining about <code>size</code> being deprecated?"
+  - id: "why-should-i-use-ggsave-instead-of-just-rendering-a-quarto-document"
+    text: "Why should I use <code>ggsave()</code> instead of just rendering a Quarto
+      document?"
+  - id: "i-made-a-bunch-of-changes-to-my-plot-with-theme-but-when-i-used-ggsave-none-of-them-actually-saved.-why"
+    text: "I made a bunch of changes to my plot with <code>theme()</code> but when
+      I used <code>ggsave()</code>, none of them actually saved. Why?"
+  - id: "does-the-order-of-theme-things-matter-i-made-changes-with-theme-and-then-wiped-them-out-with-theme_minimal"
+    text: "Does the order of theme things matter? I made changes with <code>theme()</code>
+      and then wiped them out with <code>theme_minimal()</code>?"
+  - id: "if-i-want-to-use-the-same-theme-for-all-the-plots-in-my-document-do-i-need-to-reuse-all-that-code-all-the-time"
+    text: "If I want to use the same theme for all the plots in my document, do I
+      need to reuse all that code all the time?"
+  - id: "why-would-we-want-to-use-rel1.4-instead-of-actual-numbers-when-sizing-things"
+    text: "Why would we want to use <code>rel(1.4)</code> instead of actual numbers
+      when sizing things?"
+  - id: "why-cant-i-change-title-text-with-theme"
+    text: "Why can’t I change title text with <code>theme()</code>?"
+  - id: "im-using-macos-and-couldnt-render-as-pdf-when-using-a-custom-fonthow-do-i-fix-that"
+    text: "I’m using macOS and couldn’t render as PDF when using a custom font—how
+      do I fix that?"
+  - id: "in-chapter-22-wilke-talks-about-tablesis-there-a-way-to-make-pretty-tables-with-r"
+    text: "In chapter 22, Wilke talks about tables—is there a way to make pretty tables
+      with R?"
+  - id: "double-encoding-and-excessive-legends"
+    text: "Double encoding and excessive legends"
+  - id: "legends-are-cool-but-ive-read-that-directly-labeling-things-can-be-better.-is-there-a-way-to-label-things-without-a-legend"
+    text: "Legends are cool, but I’ve read that directly labeling things can be better.
+      Is there a way to label things without a legend?"
+  - id: "can-we-fill-with-a-pattern-instead-of-colors"
+    text: "Can we fill with a pattern instead of colors?"
 - title: "Session 4 FAQs"
   categories:
   - "FAQs"
