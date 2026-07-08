@@ -14,7 +14,7 @@ withr::with_dir(here::here(), {
 })
 ```
 
-For this example, we're going to use economic data from the US Federal Reserve (the Fed). The St. Louis Fed is in charge of publishing Fed economic data, and they host it all at an online portal named [FRED](https://fred.stlouisfed.org/). Instead of downloading individual time series data from the FRED website, we'll do what with did with the World Bank WDI data and download it directly from the internet with the [{tidyquant} package](https://business-science.github.io/tidyquant/), which includes a function for working with the FRED API/website.
+For this example, we're going to use economic data from the US Federal Reserve (the Fed). The St. Louis Fed is in charge of publishing Fed economic data, and they host it all at an online portal named [FRED](https://fred.stlouisfed.org/). Instead of downloading individual time series data from the FRED website, we'll do what with did with the World Bank WDI data and download it directly from the internet with the [{fredr} package](https://sboysel.github.io/fredr/), which includes a function for working with the FRED API/website.
 
 If you want to skip the data downloading, you can download the data below (you'll likely need to right click and choose "Save Link As…"):
 
@@ -46,11 +46,11 @@ First, we load the libraries we'll be using:
 
 ```{r load-libraries, message=FALSE, warning=FALSE}
 library(tidyverse)  # For ggplot, dplyr, and friends
-library(tidyquant)  # For accessing FRED data
+library(fredr)      # For accessing FRED data
 library(scales)     # For nicer labels
 ```
 
-The US Federal Reserve provides thousands of economic datasets at [FRED](https://fred.stlouisfed.org/). We can use the [{tidyquant} R package](https://business-science.github.io/tidyquant/) to access their servers and download the data directly into R.
+The US Federal Reserve provides thousands of economic datasets at [FRED](https://fred.stlouisfed.org/). We can use the [{fredr} R package](https://sboysel.github.io/fredr/) to access their servers and download the data directly into R.
 
 Like we did with the [WDI indicators in session 8](/example/08-example.qmd), we need to find the special internal code for the variables we want to get. We need to pay close attention to the details of each variable, since the same measure can be offered with different combinations of real (adjusted for inflation) or nominal (not adjusted for inflation); monthly, quarterly, or annually; and seasonally adjusted or not seasonally adjusted. For instance, if you want to see US GDP, here are some possibilities (all the possible GDP measures are [listed here](https://fred.stlouisfed.org/categories/106)):
 
@@ -67,30 +67,43 @@ The code for getting data from FRED works a little differently than `WDI()`, and
 We'll first make a new dataset named `fred_raw` that gets a bunch of interesting variables from FRED from January 1, 1990 until today.
 
 ```{r get-fred-data, eval=FALSE}
-fred_raw <- tq_get(c("RSXFSN",  # Advance retail sales
-                     "GDPC1",  # GDP
-                     "ICSA",  # Initial unemployment claims
-                     "FPCPITOTLZGUSA",  # Inflation
-                     "UNRATE",  # Unemployment rate
-                     "USREC"),  # Recessions
-                   get = "economic.data",  # Use FRED
-                   from = "1990-01-01")
+series_ids <- c(
+  "RSXFSN",        # Advance retail sales
+  "GDPC1",         # GDP
+  "ICSA",          # Initial unemployment claims
+  "FPCPITOTLZGUSA",# Inflation
+  "UNRATE",        # Unemployment rate
+  "USREC"          # Recessions
+)
+
+fred_raw <- map(
+  series_ids,
+  \(id) fredr(series_id = id, observation_start = as.Date("1990-01-01"))
+) |>
+  list_rbind() |>
+  select(series_id, date, value)
 ```
 
 Downloading data from FRED every time you knit will get tedious and take a long time (plus if their servers are temporarily down, you won't be able to get the data). As with the World Bank data we used, it's good practice to save this raw data as a CSV file and then work with that.
 
-Since we care about reproducibility, we still want to include the code we used to get data from FRED, we just don't want it to actually run. You can include chunks but not run them by setting `eval=FALSE` in the chunk options. In this little example, we show the code for downloading the data, but we don't evaluate the chunk. We then include a chunk that loads the data from a CSV file with `read_csv()`, but we don't include it (`include=FALSE`). That way, in the rendered file we see the `tq_get()` code, but in reality it's loading the data from CSV. Super tricky.
+Since we care about reproducibility, we still want to include the code we used to get data from FRED, we just don't want it to actually run. You can include chunks but not run them by setting `eval: false` in the chunk options. In this little example, we show the code for downloading the data, but we don't evaluate the chunk. We then include a chunk that loads the data from a CSV file with `read_csv()`, but we don't include it (`include: false`). That way, in the rendered file we see the `fredr()` code, but in reality it's loading the data from CSV. Super tricky.
 
 ````markdown
 I first download data from FRED:
 
-```{{r get-fred-data, eval=FALSE}}
-fred_raw <- tq_get(...)
+```{{r}}
+#| label: get-fred-data
+#| eval: false
+
+fred_raw <- map(...)
 
 write_csv(fred_raw, "data/fred_raw.csv")
 ```
 
-```{{r load-fred-data-real, include=FALSE}}
+```{{r}}
+#| label: load-fred-datal-real
+#| include: false
+
 fred_raw <- read_csv("data/fred_raw.csv")
 ```
 
@@ -115,19 +128,19 @@ With FRED data, that kind of format doesn't work for every possible time series 
 | 2020, Q1 |      X       |        X        |
 | 2020, Q2 |              |        X        |
 
-To fix this, the {tidyquant} package gives you data in tidy (or long) form and only provides three columns:
+To fix this, the {fredr} package gives you data in tidy (or long) form and only provides three columns:
 
 ```{r show_fred_head}
 head(fred_raw)
 ```
 
-The `symbol` column is the ID of the variable from FRED , `date` is… the date, and `price` is the value. These columns are called symbol and price because the {tidyquant} package was designed to get and process stock data, so you'd typically see stock symbols (like AAPL or MSFT) and stock prices. When working with FRED data, the `price` column shows the value of whatever you're interested in—it's not technically a price (so unemployment claims, inflation rates, and GDP values are still called `price`).
+The `series_id` column is the ID of the variable from FRED , `date` is… the date, and `value` is the value.
 
-Right now, our `fred_raw` dataset has only 3 columns, but nearly 3,000 rows since the six indicators we got from the server are all stacked on top of each other. To actually work with these, we need to filter the raw data so that it only includes the indicators we're interested in. For instance, if we want to plot retail sales, we need to select only the rows where the symbol is `RSXFSN`. Make a smaller dataset with `filter()` to do that:
+Right now, our `fred_raw` dataset has only 3 columns, but nearly 3,000 rows since the six indicators we got from the server are all stacked on top of each other. To actually work with these, we need to filter the raw data so that it only includes the indicators we're interested in. For instance, if we want to plot retail sales, we need to select only the rows where the `series_id` is `RSXFSN`. Make a smaller dataset with `filter()` to do that:
 
 ```{r make-retail-sales}
 retail_sales <- fred_raw |> 
-  filter(symbol == "RSXFSN")
+  filter(series_id == "RSXFSN")
 
 retail_sales
 ```
@@ -136,9 +149,9 @@ If multiple variables have the same spacing (annual, quarterly, monthly, weekly)
 
 ```{r make-monthly-things-1}
 fred_monthly_things <- fred_raw |> 
-  filter(symbol %in% c("FPCPITOTLZGUSA", "UNRATE", "RSXFSN")) |> 
-  # Convert the symbol column into multiple columns, using the "prices" for values
-  pivot_wider(names_from = symbol, values_from = price)
+  filter(series_id %in% c("FPCPITOTLZGUSA", "UNRATE", "RSXFSN")) |> 
+  # Convert the series_id column into multiple columns, using the "values" for values
+  pivot_wider(names_from = series_id, values_from = value)
 
 fred_monthly_things
 ```
@@ -147,9 +160,9 @@ But wait! There's a problem! The inflation rate we got isn't actually monthly—
 
 ```{r make-monthly-things-2}
 fred_monthly_things <- fred_raw |> 
-  filter(symbol %in% c("UNRATE", "RSXFSN")) |> 
-  # Convert the symbol column into multiple columns, using the "prices" for values
-  pivot_wider(names_from = symbol, values_from = price) |> 
+  filter(series_id %in% c("UNRATE", "RSXFSN")) |> 
+  # Convert the series_id column into multiple columns, using the "values" for values
+  pivot_wider(names_from = series_id, values_from = value) |> 
   rename(unemployment = UNRATE, retail_sales = RSXFSN)
 
 fred_monthly_things
@@ -169,9 +182,9 @@ Here's GDP:
 ```{r gdp-basic}
 # Get just GDP data from the raw FRED data
 gdp_only <- fred_raw |> 
-  filter(symbol == "GDPC1")
+  filter(series_id == "GDPC1")
 
-ggplot(gdp_only, aes(x = date, y = price)) +
+ggplot(gdp_only, aes(x = date, y = value)) +
   geom_line()
 ```
 
@@ -180,9 +193,9 @@ Here's retail sales:
 ```{r retail-sales-basic}
 # Get just GDP data from the raw FRED data
 retail_sales_only <- fred_raw |> 
-  filter(symbol == "RSXFSN")
+  filter(series_id == "RSXFSN")
 
-ggplot(retail_sales_only, aes(x = date, y = price)) +
+ggplot(retail_sales_only, aes(x = date, y = value)) +
   geom_line()
 ```
 
@@ -190,9 +203,9 @@ And here's unemployment claims:
 
 ```{r unemp-claims}
 unemployment_claims_only <- fred_raw |> 
-  filter(symbol == "ICSA")
+  filter(series_id == "ICSA")
 
-ggplot(unemployment_claims_only, aes(x = date, y = price)) +
+ggplot(unemployment_claims_only, aes(x = date, y = value)) +
   geom_line()
 ```
 
@@ -206,7 +219,7 @@ There, we visualized time. `r emoji::emoji("check")`
 These were simple graphs and they're kind of helpful, but they're not incredibly informative. We can clean these up a little. First we can change the labels and themes and colors:
 
 ```{r gdp-better}
-ggplot(gdp_only, aes(x = date, y = price)) +
+ggplot(gdp_only, aes(x = date, y = value)) +
   geom_line(color = "#0074D9", linewidth = 1) +
   scale_y_continuous(labels = label_dollar()) +
   labs(y = "Billions of 2012 dollars",
@@ -222,7 +235,7 @@ That's great and almost good enough to publish! We can add one additional layer 
 
 ```{r show-recessions}
 fred_raw |> 
-  filter(symbol == "USREC")
+  filter(series_id == "USREC")
 ```
 
 This is monthly data that shows a 1 if we were in a recession that month and a 0 if we weren't. The Fed doesn't decide when recessions happen—the [National Bureau of Economic Research (NBER)](https://www.nber.org/) does, and they have [specific guidelines](https://en.wikipedia.org/wiki/Recession#Definition) for defining one. We're probably in one right now, but there's not enough data for NBER to formally declare it yet.
@@ -231,8 +244,8 @@ This data is long and tidy, but that makes it harder to work with given our GDP.
 
 ```{r get-recessions-change}
 recessions_tidy <- fred_raw |> 
-  filter(symbol == "USREC") |> 
-  mutate(recession_change = price - lag(price))
+  filter(series_id == "USREC") |> 
+  mutate(recession_change = value - lag(value))
 recessions_tidy
 ```
 
@@ -242,8 +255,8 @@ We can see all the start and end dates if we filter:
 
 ```{r}
 recessions_start_end <- fred_raw |> 
-  filter(symbol == "USREC") |> 
-  mutate(recession_change = price - lag(price)) |> 
+  filter(series_id == "USREC") |> 
+  mutate(recession_change = value - lag(value)) |> 
   filter(recession_change != 0)
 recessions_start_end
 ```
@@ -286,7 +299,7 @@ We can now add this tiny dataset to our plot using `geom_rect()`. Notice how we 
 The last odd/new thing here is that we also use `inherit.aes = FALSE` in `geom_rect()`. That's because we specified a global `x` and `y` aesthetic in `ggplot()`, which applies to all the other layers we add. `geom_rect()` doesn't use `x` or `y`, though, and it'll complain that those columns are missing. The `inherit.aes` argument tells ggplot that the `geom_rect()` layer should not get any of the global aesthetics like `x` or `y`.
 
 ```{r gdp-fancy-awesom}
-ggplot(gdp_only, aes(x = date, y = price)) +
+ggplot(gdp_only, aes(x = date, y = value)) +
   geom_rect(data = recessions, 
             aes(xmin = start, xmax = end, ymin = -Inf, ymax = Inf),
             inherit.aes = FALSE, fill = "#B10DC9", alpha = 0.3) +
@@ -306,7 +319,7 @@ And that's it!
 Now that we have the tiny recessions data frame, we can add it to any plot we want. Here's initial unemployment claims with some extra annotations for fun:
 
 ```{r unemployment-fancy}
-ggplot(unemployment_claims_only, aes(x = date, y = price)) +
+ggplot(unemployment_claims_only, aes(x = date, y = value)) +
   geom_rect(data = recessions, 
             aes(xmin = start, xmax = end, ymin = -Inf, ymax = Inf),
             inherit.aes = FALSE, fill = "#B10DC9", alpha = 0.3) +
@@ -342,9 +355,9 @@ The retail sales data we got from FRED was not seasonally adjusted, so it looks 
 
 ```{r retail-sales-full}
 retail_sales <- fred_raw |> 
-  filter(symbol == "RSXFSN")
+  filter(series_id == "RSXFSN")
 
-ggplot(retail_sales, aes(x = date, y = price)) +
+ggplot(retail_sales, aes(x = date, y = value)) +
   geom_line()
 ```
 
@@ -354,7 +367,7 @@ We can divide this trend into its main components: the trend, the seasonality, a
 library(tsibble)  # For embedding time things into data frames
 
 retail_sales <- fred_raw |> 
-  filter(symbol == "RSXFSN") |> 
+  filter(series_id == "RSXFSN") |> 
   mutate(year_month = yearmonth(date)) |> 
   as_tsibble(index = year_month)
 retail_sales
@@ -368,7 +381,7 @@ Next we need to create a time series model using that data. There are lots of di
 library(feasts)  # For decomposition things like STL()
 
 retail_model <- retail_sales |> 
-  model(stl = STL(price))
+  model(stl = STL(value))
 retail_model
 ```
 
@@ -435,11 +448,11 @@ retail_components_tidy <- retail_components |>
   # Get rid of this column
   select(-season_adjust) |> 
   # Take all these component columns and put them into a long column
-  pivot_longer(cols = c(price, trend, season_year, remainder),
+  pivot_longer(cols = c(value, trend, season_year, remainder),
                names_to = "component", values_to = "value") |> 
   # Recode this values so they're nicer
   mutate(component = recode(component, 
-                            price = "Actual data",
+                            value = "Actual data",
                             trend = "Trend",
                             season_year = "Seasonality",
                             remainder = "Remainder")) |> 
