@@ -203,7 +203,7 @@ get_fred <- function() {
     \(id) fredr(series_id = id, observation_start = as.Date("1990-01-01"))
   ) |>
     list_rbind() |>
-    select(symbol = series_id, date, price = value)
+    select(series_id, date, value)
 
   return(fred_raw)
 }
