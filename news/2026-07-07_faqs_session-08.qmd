@@ -1,5 +1,5 @@
 ---
-title: "Week 8 FAQs"
+title: "Session 8 FAQs"
 date: "2026-07-07T15:55"
 categories: [FAQs]
 toc-depth: 4
@@ -65,7 +65,7 @@ Sure! Either way is fine—it just depends on the story you're trying to tell. I
 I saw two common issues for why small multiples plots didn't resize correctly:
 
 1. You used `fig.width` or `fig_width` or `figwidth` instead of `fig-width`. You have to use `fix-width` and `fig-height` (with a `-` dash)
-2. You included other content earlier in the chunk. [Remember from this](/news/2026-02-17_faqs_week-05.qmd#i-specified-chunk-options-like-fig-width-but-they-didnt-work-and-they-appeared-in-the-documentwhy) that chunk options *must* be the first things inside a chunk.
+2. You included other content earlier in the chunk. [Remember from this](/news/2026-06-30_faqs_session-05.qmd#i-specified-chunk-options-like-fig-width-but-they-didnt-work-and-they-appeared-in-the-documentwhy) that chunk options *must* be the first things inside a chunk.
 
 
 ### Why did my slopegraph labels repeat on both sides?

@@ -87,7 +87,7 @@ format:
     toc: true
 ```
 
-That makes it so that HTML, PDF, typst (fancier, faster PDFs), and Word all appear in the dropdown menu. Additionally, it enables an automatic table of contents (`toc: true`) in each format. There are a ton of different format-specific settings you can change—[see here for more details and examples](/news/2026-01-26_cleaner-nicer-qmd-output.qmd#fancy-document-settings).
+That makes it so that HTML, PDF, typst (fancier, faster PDFs), and Word all appear in the dropdown menu. Additionally, it enables an automatic table of contents (`toc: true`) in each format. There are a ton of different format-specific settings you can change—[see here for more details and examples](/news/2026-06-12_cleaner-nicer-qmd-output.qmd#fancy-document-settings).
 
 
 ### Rendered document format for iCollege
@@ -345,7 +345,7 @@ Here's my best tip for remembering all the different functions in R: **Don't.**
 
 Really truly.
 
-[See this for more details.](/news/2026-01-26_copy-paste-tweak.qmd)
+[See this for more details.](/news/2026-06-12_copy-paste-tweak.qmd)
 
 Inevitably in the classes where I teach R, I have students say things like “I’m trying to do this without looking at any documentation!” or “I can't do this without googling—I'm a failure!”. While the effort to be fully independent and perfect with code is noble, it’s *totally unnecessary*. Everyone looks stuff up all the time—being able to do something without looking stuff up shouldn’t be your end goal. 
 

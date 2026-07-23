@@ -45,12 +45,10 @@ I have a few strategies for encouraging judgment-free curiosity in this class:
 
 2. **Exciting and muddy things**: Your weekly check-ins let you tell me what new and exciting things you're learning, and they let me know where you're getting stuck so I can get things unstuck. These don't need to be written formally with citations or anything—use these to tell me the cool things you're finding. This is space for judgment-free curiosity!
 
-3. **#TidyTuesday**: The whole point of the [#TidyTuesday](/assignment/tidy-tuesday.qmd) assignment is to let you do *something* neat with R. It's entirely self directed. Make something cool.
-
 
 ### Why does `#` mean both headings and code comments?
 
-This is a tricky quirk of using Quarto. In Markdown, the `#` symbol is how you [create headings](/news/2026-01-26_cleaner-nicer-qmd-output.qmd#headings-that-aren't-headings), and you can combine them to create nested headings and subheadings:
+This is a tricky quirk of using Quarto. In Markdown, the `#` symbol is how you [create headings](/news/2026-06-12_cleaner-nicer-qmd-output.qmd#headings-that-aren't-headings), and you can combine them to create nested headings and subheadings:
 
 ``` default
 # Task 1: Check-in

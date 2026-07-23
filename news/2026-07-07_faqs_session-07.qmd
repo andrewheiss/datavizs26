@@ -1,5 +1,5 @@
 ---
-title: "Week 7 FAQs"
+title: "Session 7 FAQs"
 date: "2026-07-07T13:21"
 categories: [FAQs]
 toc-depth: 4
